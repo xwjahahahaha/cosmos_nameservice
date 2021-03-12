@@ -12,6 +12,7 @@ import (
 )
 
 // GetTxCmd returns the transaction commands for this module
+// 返回模块的交易命令
 func GetTxCmd(cdc *codec.Codec) *cobra.Command {
 	nameserviceTxCmd := &cobra.Command{
 		Use:                        types.ModuleName,
@@ -21,8 +22,12 @@ func GetTxCmd(cdc *codec.Codec) *cobra.Command {
 		RunE:                       client.ValidateCmd,
 	}
 
+	// 把txWhois.go中的命令都添加
 	nameserviceTxCmd.AddCommand(flags.PostCommands(
-    // this line is used by starport scaffolding # 1
+		// this line is used by starport scaffolding
+		GetCmdBuyName(cdc),
+		GetCmdSetWhois(cdc),
+		GetCmdDeleteWhois(cdc),
 	)...)
 
 	return nameserviceTxCmd
