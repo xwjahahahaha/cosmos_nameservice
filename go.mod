@@ -16,3 +16,5 @@ require (
 	github.com/tendermint/tm-db v0.5.1
 	golang.org/x/net v0.0.0-20200520182314-0ba52f642ac2 // indirect
 )
+
+replace google.golang.org/grpc => google.golang.org/grpc v1.33.2

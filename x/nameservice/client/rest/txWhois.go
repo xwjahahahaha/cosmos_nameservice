@@ -34,7 +34,6 @@ func buyNameHandler(cliCtx context.CLIContext) http.HandlerFunc {
 		}
 		// AccAddressFromBech32转换string为32位地址的方法
 		addr, err := sdk.AccAddressFromBech32(req.Buyer)
-		fmt.Println(addr)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
@@ -68,18 +67,23 @@ type setWhoisRequest struct {
 
 // 设置解析值
 func setWhoisHandler(cliCtx context.CLIContext) http.HandlerFunc {
+	fmt.Println("setWhoisHandler被调用")
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req setWhoisRequest
 		if !rest.ReadRESTReq(w, r, cliCtx.Codec, &req) {
+			fmt.Println("Error1111")
 			rest.WriteErrorResponse(w, http.StatusBadRequest, "failed to parse request")
 			return
 		}
 		baseReq := req.BaseReq.Sanitize()
 		if !baseReq.ValidateBasic(w) {
+			fmt.Println("Error1111")
 			return
 		}
 		addr, err := sdk.AccAddressFromBech32(req.Creator)
+		fmt.Println("测试：", req.Creator)
 		if err != nil {
+			fmt.Println("Error", err)
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
